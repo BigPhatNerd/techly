@@ -1,5 +1,7 @@
 const express = require('express');
 const routes = require('./controllers');
+//Require the routes within your api folder. 
+const apiRoutes = require(./controllers/api)
 const sequelize = require('./config/connection');
 const path = require('path');
 
@@ -39,6 +41,8 @@ app.set('view engine', 'handlebars');
 
 // turn on routes
 app.use(routes);
+//Make sure Express knows that these routes are here as well. (Might need to play with the naming convention, but I think this will do.)
+app.use(apiRoutes);
 
 // turn on connection to db and server
 sequelize.sync({ force: false }).then(() => {    // true will recrete the tables, set back to false after creating
